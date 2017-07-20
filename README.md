@@ -1,2 +1,2 @@
 # Arondight
-Repo for SJTU-2017 team Arondight
+Stuff of SJTU-2017 team Arondight.
