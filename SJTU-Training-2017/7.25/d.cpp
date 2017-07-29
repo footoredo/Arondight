@@ -34,38 +34,59 @@ void build_sa(int m)
 }
 void build_height()
 {
-	int i,j,k=0;
+	int i,k=0;
 	for (i=0;i<n;i++)	ra[sa[i]]=i;
+	for (i=0;i<n;i++)
+	{
+		if (ra[i]==0) continue;
+		if (k) k--;
+		int j=sa[ra[i]-1];
+		while (s[i+k]==s[j+k]) k++;
+		he[ra[i]]=k;
+	}
 }
-pair<int,int> seg[maxn<<2];
+set<int> S;
+set<int>::iterator it,it2;
+struct Ques
+{
+	int l,r;
+	int id,ans;
+}	ques[maxn];
+bool cmp(const Ques &a,const Ques &b)
+{
+	return a.r<b.r;
+}
+bool cmp_id(const Ques &a,const Ques &b)
+{
+	return a.id<b.id;
+}
+vector<int> ev[maxn];
+int seg[maxn<<2];
 void build(int t,int l,int r)
 {
 	if (l==r)
 	{
-		seg[t]=make_pair(ra[l-1],l);
+		seg[t]=he[l];
 		return;
 	}
 	int mid=(l+r)>>1;
 	build(t<<1,l,mid);
 	build(t<<1|1,mid+1,r);
-	if (seg[t<<1].first > seg[t<<1|1].first)
-		seg[t]=seg[t<<1];
-	else
-		seg[t]=seg[t<<1|1];
+	seg[t]=min(seg[t<<1],seg[t<<1|1]);
 }
-pair<int,int> query(int t,int l,int r,int ql,int qr)
+int query(int t,int l,int r,int ql,int qr)
 {
 	if (ql<=l && qr>=r)	return seg[t];
 	int mid=(l+r)>>1;
 	if (qr<=mid)	return query(t<<1,l,mid,ql,qr);
 	if (ql>mid)	return query(t<<1|1,mid+1,r,ql,qr);
-	pair<int,int> tm1,tm2;
-	tm1=query(t<<1,l,mid,ql,mid);
-	tm2=query(t<<1|1,mid+1,r,mid+1,qr);
-	if (tm1.first>tm2.first)
-		return tm1;
-	else
-		return tm2;
+	return min(query(t<<1,l,mid,ql,mid),query(t<<1|1,mid+1,r,mid+1,qr));
+}
+bool da(int x,int y,int &lc)
+{
+	if (ra[x]<ra[y])	return false;
+	lc=query(1,1,n,ra[y]+1,ra[x]);
+	return true;
 }
 int main()
 {
@@ -78,10 +99,66 @@ int main()
 	scanf("%d",&m);
 	for (int i=1;i<=m;i++)
 	{
-		int l,r;
-		scanf("%d%d",&l,&r);
-		pair<int,int> ans=query(1,1,n,l,r);
-		printf("%d\n",ans.second);
+		scanf("%d%d",&ques[i].l,&ques[i].r);
+		ques[i].l--;
+		ques[i].r--;
+		ques[i].id=i;
 	}
+	sort(ques,ques+m+1,cmp);
+	int now=1;
+	for (int i=0;i<n-1;i++)
+	{
+		while (!S.empty())
+		{
+			it=S.end();
+			it--;
+			int pos;
+			if (da(i,*it,pos))
+			{
+				if (pos!=0)
+				{
+					ev[i+pos].push_back(i);
+					break;
+				}	else
+				{
+					S.erase(it);
+				}
+			}	else	break;
+		}
+		S.insert(i);
+		for (auto j:ev[i])
+		if (S.count(j))
+		{
+			it=S.lower_bound(j);
+			if (it==S.begin())	continue;
+			it--;
+			int pos;
+			while (da(j,*it,pos))
+			{
+				if (j+pos>i)
+				{
+					ev[j+pos].push_back(j);
+					break;
+				}
+				it2=it;
+				if (it==S.begin())
+				{
+					S.erase(it);
+					break;
+				}
+				it--;
+				S.erase(it2);
+			}
+		}
+		while (now<=m && ques[now].r==i)
+		{
+			it=S.lower_bound(ques[now].l);
+			ques[now].ans=*it;
+			now++;
+		}
+	}
+	sort(ques+1,ques+m+1,cmp_id);
+	for (int i=1;i<=m;i++)
+		printf("%d\n",ques[i].ans+1);
 	return 0;
 }
