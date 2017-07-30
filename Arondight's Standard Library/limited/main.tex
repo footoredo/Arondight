@@ -39,7 +39,7 @@
 \usepackage{harpoon}
 \usepackage{fontspec}
 \usepackage{listings}
-\usepackage[left=1cm,right=1cm,top=1cm,bottom=1cm,columnsep=1cm,dvipdfm]{geometry}
+\usepackage[left=1cm,right=1cm,top=1.2cm,bottom=1cm,columnsep=1cm,dvipdfm]{geometry}
 \usepackage{setspace}
 \usepackage{bm}
 \usepackage{cmap}
@@ -63,31 +63,36 @@
 %\setlength{\mathindent}{0pt}
 \lstset{breaklines}
 \let\cleardoublepage\relax
-\titleformat{\chapter}{\normalfont\large\bfseries}{Chapter \,\thechapter}{10pt}{\large}
-\titleformat{\section}{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
-\titleformat{\subsection}{\normalfont\small\bfseries}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}{\normalfont\footnotesize\bfseries}{\thesubsubsection}{1em}{}
-\titlespacing*{\chapter} {0pt}{0pt}{0pt}
+\titleformat{\chapter}{\normalfont\normalsize\sffamily}{\thechapter}{10pt}{}
+\titleformat{\section}{\normalfont\footnotesize\sffamily}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\footnotesize\sffamily}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\footnotesize\sffamily}{\thesubsubsection}{1em}{}
+\titlespacing*{\chapter} {0pt}{5pt}{5pt}
 \titlespacing*{\section} {0pt}{0pt}{0pt}
-\titlespacing*{\subsection} {0pt}{-1pt}{-1pt}
-\titlespacing*{\subsubsection}{0pt}{-1pt}{-1pt}
+\titlespacing*{\subsection} {0pt}{0pt}{0pt}
+\titlespacing*{\subsubsection}{0pt}{0pt}{0pt}
 %configure fonts
-\setmonofont{SourceCodeProForPowerline-Regular}[Scale=0.8]
+\setmonofont{LMMono10-Regular}[Scale=0.8]
 %\setmonofont{FiraCode-Retina}[Scale=0.8]
-\setCJKmainfont[BoldFont={FandolSong-Bold}]{FandolSong-Regular}
+\setCJKmainfont{FandolSong-Regular}
+\setCJKsansfont{SourceHanSans-Medium}
 \setCJKmonofont[Scale=0.8]{STXihei}
 \usepackage{yfonts}
 
+\usepackage{fancyhdr}
+
 \renewcommand{\theFancyVerbLine}{\sffamily \textcolor[rgb]{0.5,0.5,0.5}{\scriptsize {\arabic{FancyVerbLine}}}}
+
+\usemintedstyle{tango}
 
 \setminted[cpp]{
 	style=xcode,
 	mathescape,
 	linenos,
 	autogobble,
-	baselinestretch=0.5,
-	tabsize=4,
-	fontsize=\small,
+	baselinestretch=0.8,
+	tabsize=2,
+	fontsize=\normalsize,
 	%bgcolor=Gray,
 	frame=single,
 	framesep=1mm,
@@ -104,8 +109,9 @@
 	mathescape,
 	linenos,
 	autogobble,
-	baselinestretch=1.0,
-	tabsize=4,
+	baselinestretch=0.8,
+	tabsize=2,
+	fontsize=\normalsize,
 	%bgcolor=Gray,
 	frame=single,
 	framesep=1mm,
@@ -122,8 +128,9 @@
 	mathescape,
 	linenos,
 	autogobble,
-	baselinestretch=1.0,
+	baselinestretch=0.8,
 	tabsize=4,
+	fontsize=\normalsize,
 	%bgcolor=Gray,
 	frame=single,
 	framesep=1mm,
@@ -135,9 +142,26 @@
 	%breaksymbolright=\small\carriagereturn,
 	breakbytoken=false,
 }
+
+\usepackage{lastpage}
+\pagestyle{fancy}
+\fancypagestyle{plain}{}
+\fancyhf{}
+\lhead{Shanghai Jiao Tong University × Arondight}
+\chead{\leftmark}
+\rhead{\thepage/\pageref{LastPage}}
+\setlength{\headsep}{1pt}
+
+\usepackage{tocloft}
+\makeatletter
+\renewcommand{\@cftmaketoctitle}{}
+\makeatother
+
+\usepackage{punk}
+
 \begin{document}\scriptsize
 	\renewcommand{\thefootnote}{\fnsymbol{footnote}}
-	\title{\Huge{\textgoth{Arondight's Standard Code Library}}\thanks{https://github.com/footoredo/Arondight}}
+	\title{\Huge{{\punkfamily Arondight's Standard Code Library}}\thanks{https://www.github.com/footoredo/Arondight}}
 	\author{\emph{Shanghai Jiao Tong University}}
 	\date{Dated: \today}
 	\maketitle
