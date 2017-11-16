@@ -1,5 +1,51 @@
 \chapter{提示}
 
+\section {反演相关}
+
+\[ \sigma_k(n) = \sum_{d|n}d^k = \prod_{i=1}^{\omega(n)}\frac{p_i^{(a_i+1)k}-1}
+{p_i^k-1} \]
+\[ J_k(n) = n^k\prod_{p|n}(1-\frac{1}{p^k}) \]
+$J_k(n)$ is the number of $k$-tuples of positive integers all less than or equal to n that form a coprime $(k + 1)$-tuple together with $n$.
+\[ \sum_{\delta|n}J_k(\delta) = n^k \]
+\[ \sum_{\delta|n}\delta^sJ_r(\delta)J_s(\frac{n}{\delta}) = J_{r+s}(n) \]
+\begin{align*}
+\sum_{\delta|n}\varphi(\delta)d(\frac{n}{\delta}) = \sigma(n),&\ \sum_{\delta|n}\left| \mu(\delta) \right| = 2^{\omega(n)} \\
+\sum_{\delta|n}2^{\omega(\delta)} = d(n^2),&\ \sum_{\delta|n}d(\delta^2) = d^2(n) \\
+\sum_{\delta|n}d(\frac{n}{\delta})2^{\omega(\delta)} = d^2(n),&\ \sum_{\delta|n}\frac{\mu(\delta)}{\delta} = \frac{\varphi(n)}{n} \\
+\sum_{\delta|n}\frac{\mu(\delta)}{\varphi(\delta)} = d(n),&\ \sum_{\delta|n}\frac{\mu^2(\delta)}{\varphi(\delta)} = \frac{n}{\varphi(n)} \\
+\end{align*}
+\[ n|\varphi(a^n-1) \]
+\[ \sum_{\substack{1 \leq k \leq n \\ \gcd(k, n) = 1}}f(\gcd(k-1, n)) = \varphi(n)
+\sum_{d|n}\frac{(\mu*f)(d)}{\varphi(d)} \]
+\[ \varphi(\mathrm{lcm}(m, n))\varphi(\gcd(m,n)) = \varphi(m)\varphi(n) \]
+\[ \sum_{\delta|n}d^3(\delta) = (\sum_{\delta|n}d(\delta))^2 \]
+\[ d(uv) = \sum_{\delta|\gcd(u, v)}\mu(\delta)d(\frac{u}{\delta})d(\frac{v}{\delta}) \]
+\[ \sigma_k(u)\sigma_k(v) = \sum_{\delta|\gcd(u, v)}\delta^k\sigma_k(\frac{uv}{\delta^2}) \]
+\[ \mu(n) = \sum_{k=1}^n[\gcd(k, n)=1]\cos{2\pi \frac{k}{n}} \]
+\[ \varphi(n) = \sum_{k=1}^n[\gcd(k, n)=1] = \sum_{k=1}^n\gcd(k, n)\cos{2\pi \frac{k}{n}} \]
+\[
+\left\{
+\begin{aligned}
+&S(n) = \sum_{k=1}^n(f \ast g)(k) \\
+&\sum_{k=1}^nS(\lfloor {n \over k} \rfloor) = \sum_{i=1}^nf(i)\sum_{j=1}^{\lfloor{n \over i}\rfloor}(g \ast 1)(j)
+\end{aligned}
+\right.
+\]
+\[
+\left\{
+\begin{aligned}
+&S(n) = \sum_{k=1}^n(f \cdot g)(k), g \text{ completely multiplicative} \\
+&\sum_{k=1}^nS(\lfloor {n \over k} \rfloor)g(k) = \sum_{k=1}^n(f \ast 1)(k)g(k)
+\end{aligned}
+\right.
+\]
+
+\section{第二类斯特林数}
+
+\[ {n+1 \brace k} = k{n \brace k} + {n \brace k-1} \]
+\[ x^n = \sum_k{ {n \brace k}x^{\underline{k}} } = \sum_k{ {n \brace k}(-1)^{n-k}x^{\overline{k}} } \]
+\[ m!{n \brace m} = \sum_k{m \choose k}k^n(-1)^{m-k} \]
+
 \section{控制cout输出实数精度}
 \inputminted{cpp}{\source/hints/control-cout-precision.cpp}
 \section{vimrc}
