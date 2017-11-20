@@ -7,7 +7,7 @@ int prepare(int n) {
 	}
 	return len;
 }
-void DFT(Complex *a, int n, int f) {
+void DFT(Complex *a, int n, int f = 0) {
 	for (int i = 0, j = 0; i < n; i++) {
 		if (i > j) std::swap(a[i], a[j]);
 		for (int t = n >> 1; (j ^= t) < t; t >>= 1);

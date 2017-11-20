@@ -9,30 +9,7 @@ const int maxl=262144;
 const db pi=acos(-1.0);
 const int mo=998244353;
 
-struct Complex
-{
-	db r,i;
-	Complex(db x=0.0,db y=0.0)
-	{
-		r=x,i=y;
-	}
-	Complex operator+(const Complex &o)	const
-	{
-		return Complex(r+o.r,i+o.i);
-	}
-	Complex operator-(const Complex &o)	const
-	{
-		return Complex(r-o.r,i-o.i);
-	}
-	Complex operator*(const Complex &o)	const
-	{
-		return Complex(r*o.r-i*o.i,r*o.i+i*o.r);
-	}
-	Complex conj()	const
-	{
-		return Complex(r,-i);
-	}
-}	A[maxl],B[maxl],C[maxl],D[maxl];
+Complex A[maxl],B[maxl],C[maxl],D[maxl];
 
 int a[maxn<<1],b[maxn<<1],c[maxn<<1];
 
